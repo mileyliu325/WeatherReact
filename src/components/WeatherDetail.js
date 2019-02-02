@@ -1,120 +1,103 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 // import logo from './logo.svg';
 // import './App.css';
-import Button from '@material-ui/core/Button';
-import styled from 'styled-components';
-import '../bootstrap.css';
-import Grid from '@material-ui/core/Grid';
+import Button from "@material-ui/core/Button";
+import styled from "styled-components";
+import "../bootstrap.css";
+import Grid from "@material-ui/core/Grid";
 
 const styles = theme => ({
-    root: {
-      flexGrow: 1,
-    },
-    paper: {
-      padding: theme.spacing.unit * 2,
-      textAlign: 'center',
-      color: theme.palette.text.secondary,
-    },
-  });
+  root: {
+    flexGrow: 1
+  },
+  paper: {
+    padding: theme.spacing.unit * 2,
+    textAlign: "center",
+    color: theme.palette.text.secondary
+  }
+});
 
 class WeatherDetail extends Component {
-
-    constructor(props){
-        super();
-        this.state = {
-        };
-        // const { classes } = styles;
-    }
+  constructor(props) {
+    super();
+    this.state = {};
+    // const { classes } = styles;
+  }
   render() {
-
-  
     return (
-      
-<div >
+      <WeatherContainer>
+        <TempContainer>
+          <p> {this.props.temp} °C</p>
+        </TempContainer>
 
-    {/* <Grid container spacing={24}></Grid> */}
-
-    {/* <Grid item xs={12}> */}
-        <TempContainer className="align-self-center" >
-             {this.props.temp}
-         </TempContainer>
-    
-    {/* </Grid> */}
-
-    {/* <Grid item xs={12}> */}
-    <SumContainer>
-    {this.props.condition}
-      </SumContainer>
-    {/* </Grid> */}
+        <SumContainer>
+          <h4>{this.props.condition}</h4>
+        </SumContainer>
 
 
-    {/* <Grid item xs={8}> */}
-    <HumidityContainer>
-          <h4>HUMIDITY</h4>
-          <h4>{this.props.humidity}</h4>
-    </HumidityContainer>
-    
-    
-    
-    {/* </Grid> */}
-    
-      
+        <OtherContainer>
 
-     
-      <WindContainer>
-        <h4>Wind</h4>
-        <h4>{this.props.wind}</h4>
+        <HumidityContainer>
+          <h6>HUMIDITY</h6>
+          <h6>{this.props.humidity}%</h6>
+        </HumidityContainer>
 
-      </WindContainer>
+        <div></div>
 
+        <WindContainer>
+          <h6>Wind</h6>
+          <h6>{this.props.wind}K/m</h6>
+        </WindContainer>
 
-      
-      {/* <Grid container spacing = {8}>
-      <h1>cloudy</h1>   
-      
-      </Grid> */}
-
-
-   </div>   
-     
-      
+        </OtherContainer>
+        
+      </WeatherContainer>
     );
   }
 }
 
 export default WeatherDetail;
 
-const TempContainer = styled.div`
- width:100%;
- height:8%;
- /* margin-left:20%; */
- margin-top:10%;
- font-size:50px;
+const WeatherContainer = styled.div`
+    width:70%;
+    height:60%;
+    margin-left:15%;
+    margin-top:10%;
+    margin-bottom:10%;
+    margin-right:15%;
 
- /* background-color: #000; */
- color: #fff;
+    display:flex;
+    flex-direction:column;
+`;
+
+const TempContainer = styled.div`
+  width: 100%;
+  font-size: 50px;
+  color: #fff;
+  margin-left:20%;
 `;
 
 const SumContainer = styled.div`
-width:100%;
-height:8%;
-margin-left:30%;
-margin-top:10%;
-color:#fff;
+  width: 100%;
+  margin-left:20%;
+  color: #fff;
 `;
-
+const OtherContainer = styled.div`
+ display:flex;
+ flex-direction:row;
+`;
 const HumidityContainer = styled.div`
-width:100%;
-height:8%;
-margin-left:20%;
-margin-top:10%;
-color:#fff;
+  width: 100%;
+  /* height: 8%; */
+  /* margin-left: 20%; */
+  /* margin-top: 10%; */
+  color: #fff;
 `;
 
 const WindContainer = styled.div`
-width:100%;
-height:8%;
-margin-left:60%;
-margin-top:-5%;
-color:#fff;
+  width: 100%;
+  /* height: 8%; */
+  /* margin-left: 60%; */
+  /* margin-top: -5%; */
+  color: #fff;
 `;
