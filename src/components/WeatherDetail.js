@@ -1,21 +1,6 @@
 import React, { Component } from "react";
-// import logo from './logo.svg';
-// import './App.css';
-import Button from "@material-ui/core/Button";
 import styled from "styled-components";
 import "../bootstrap.css";
-import Grid from "@material-ui/core/Grid";
-
-const styles = theme => ({
-  root: {
-    flexGrow: 1
-  },
-  paper: {
-    padding: theme.spacing.unit * 2,
-    textAlign: "center",
-    color: theme.palette.text.secondary
-  }
-});
 
 class WeatherDetail extends Component {
   constructor(props) {
@@ -33,7 +18,6 @@ class WeatherDetail extends Component {
         <SumContainer>
           <h4>{this.props.condition}</h4>
         </SumContainer>
-
 
         <OtherContainer>
 
@@ -65,7 +49,6 @@ const WeatherContainer = styled.div`
     margin-top:10%;
     margin-bottom:10%;
     margin-right:15%;
-
     display:flex;
     flex-direction:column;
 `;
@@ -74,30 +57,26 @@ const TempContainer = styled.div`
   width: 100%;
   font-size: 50px;
   color: #fff;
-  margin-left:20%;
+  margin-left:30%;
 `;
 
 const SumContainer = styled.div`
-  width: 100%;
+  width: 60%;
   margin-left:20%;
   color: #fff;
 `;
 const OtherContainer = styled.div`
  display:flex;
  flex-direction:row;
+ margin-top:5%;
 `;
 const HumidityContainer = styled.div`
   width: 100%;
-  /* height: 8%; */
-  /* margin-left: 20%; */
-  /* margin-top: 10%; */
   color: #fff;
 `;
 
 const WindContainer = styled.div`
   width: 100%;
-  /* height: 8%; */
-  /* margin-left: 60%; */
-  /* margin-top: -5%; */
+
   color: #fff;
 `;

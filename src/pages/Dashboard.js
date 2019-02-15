@@ -1,25 +1,13 @@
-// f2dbda67de814bf8bf895350192301
 import React, { Component } from "react";
-// import logo from './logo.svg';
-
 import "../bootstrap.css";
-import Button from "@material-ui/core/Button";
 import styled from "styled-components";
 import axios from "axios";
-import Grid from "@material-ui/core/Grid";
+
 import WeatherDetail from "../components/WeatherDetail";
 import WeatherWeek from "../components/WeatherWeek";
 
-const styles = theme => ({
-  root: {
-    flexGrow: 1
-  },
-  paper: {
-    padding: theme.spacing.unit * 2,
-    textAlign: "center",
-    color: theme.palette.text.secondary
-  }
-});
+const HOST = "https://api.apixu.com/v1/forecast.json";
+const KEY = "f2dbda67de814bf8bf895350192301";
 
 class Dashboard extends Component {
   constructor() {
@@ -27,13 +15,12 @@ class Dashboard extends Component {
     this.state = { data: null };
   }
   fetchData = async () => {
+    var city = "Sydney";
     axios
-      .get(
-        "https://api.apixu.com/v1/forecast.json?key=f2dbda67de814bf8bf895350192301&q=Sydney&days=5"
-      )
+      .get(HOST + "?key=" + KEY + "&q=" + city + "&days=5")
       .then(res => {
         const data = res.data;
-        // console.log(data);
+
         this.setState({ data: data });
       })
       .catch(err => {
@@ -42,7 +29,6 @@ class Dashboard extends Component {
   };
   componentDidMount() {
     this.fetchData();
-   
   }
 
   render() {
@@ -50,33 +36,24 @@ class Dashboard extends Component {
     console.log(data);
     return (
       <div>
-        <BackgroundContainer className="row">
-          <BoardContainer className="col-sm-10 col-md-10 col-lg-10 align-self-center">
+        <BackgroundContainer>
+          <BoardContainer>
+            <TopContainer>
+              <DetailContainer>
+                {data && data.current && (
+                  <WeatherDetail
+                    temp={data.current.temp_c}
+                    humidity={data.current.humidity}
+                    wind={data.current.wind_mph}
+                    condition={data.current.condition.text}
+                  />
+                )}
+              </DetailContainer>
 
-          <TopContainer>
-
-          <DetailContainer>
-              {data && data.current && (
-                <WeatherDetail
-                  temp={data.current.temp_c}
-                  humidity={data.current.humidity}
-                  wind={data.current.wind_mph}
-                  condition={data.current.condition.text}
-                />
-              )}
-            </DetailContainer>
-
-            <CityContainer>
-
+              <CityContainer>
                 <h1>Sydney</h1>
-
-
-            </CityContainer>
-
-            
-          
-          </TopContainer>
-           
+              </CityContainer>
+            </TopContainer>
 
             <BottomContainer>
               <TweetContainer />
@@ -84,15 +61,13 @@ class Dashboard extends Component {
               <WeekContainer>
                 {data &&
                   data.forecast.forecastday.map((day, id) => (
-                    <div className="align-self-center" key={id}>
-                      <h4 className="card-title">{day.date}</h4>
-
-                      <img src={day.day.condition.icon} alt={day.date} />
-                      <h5 className="card-subtitle">{day.day.avgtemp_c} °C </h5>
-                      <h6 className="card-subtitle">
-                        {day.day.condition.text}
-                      </h6>
-                    </div>
+                    <WeatherWeek
+                      key={id}
+                      date={day.date}
+                      icon={day.day.condition.icon}
+                      temp={day.day.avgtemp_c}
+                      sum={day.day.condition.text}
+                    />
                   ))}
               </WeekContainer>
             </BottomContainer>
@@ -106,59 +81,62 @@ class Dashboard extends Component {
 export default Dashboard;
 
 const BackgroundContainer = styled.div`
-  width: 100%;
   height: 100%;
   background-image: linear-gradient(66deg, deeppink, purple, blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const BoardContainer = styled.div`
   height: 90%;
   width: 80%;
-  margin-left: 10%;
   background-color: darkblue;
   border-radius: 10px;
-  display:flex;
-  flex-direction:column;
+  display: flex;
+  flex-direction: column;
 `;
+//todo fix the % issues
 
 const TopContainer = styled.div`
-   /* height: 50%; */
-   width: 100%;
-   display:flex;
-   flex-direction:row;
-
-`;
-const DetailContainer = styled.div`
-  display:flex;
-`;
-const CityContainer = styled.div`
-    display:flex;
-    background-color:red;
+  height: 55%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
 `;
 
 const BottomContainer = styled.div`
-  /* height: 50%; */
-  width: 102%;
-  margin-left: -1%;
+  height: 50%;
+  width: 100%;
   margin-top: -5%;
   background-color: #fff;
   border-radius: 10px;
   display: flex;
   flex-direction: row;
+  flex: 1;
+`;
+
+const DetailContainer = styled.div`
+  display: flex;
+`;
+const CityContainer = styled.div`
+  margin-top:10%;
+  display: flex;
+  /* align-items:flex-start; */
+  justify-content:center;
+  color: #fff;
+  text-decoration:underline;
 `;
 
 const TweetContainer = styled.div`
   height: 100%;
-  width: 40%;
-  background-color: #ff6;
+  flex: 2;
 `;
 
 const WeekContainer = styled.div`
-  height: 50%;
-  width: 60%;
-  margin-top: 5%;
-  background-color: #fff;
+  height: 100%;
+  flex: 3;
   display: flex;
   flex-direction: row;
-  padding: 5px;
 `;

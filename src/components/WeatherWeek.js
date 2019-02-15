@@ -1,43 +1,54 @@
 import React, { Component } from 'react';
-// import logo from './logo.svg';
-// import './App.css';
-import Button from '@material-ui/core/Button';
+import styled from "styled-components";
+import {getDayOfWeek,getWeatherKeyWord} from "../utilities";
 
 class WeatherWeek extends Component {
 
     constructor(props){
         super();
-        this.state = {data:props};
-
-    console.log("props:"+props);
+       console.log("props:"+props.date);
     }
   render() {
-      
-    const data = this.state.data;
-    console.log(data);
-                             
+    const day = getDayOfWeek(this.props.date);
+    const weather  = getWeatherKeyWord(this.props.sum);
     return (
-      <div>
-        {data && 
-                data.forecastday && (
-                //      const weeklist = data.forecastday.map( day => (
-                //   <div>{day}</div>  ));    
-                    
-               <div>{
-                 
-                  }
-                 </div>         // <WeatherWeek data={data.forecast}>
-                        
-                    // </WeatherWeek>
-         )}
-
-      {/* <Button variant="contained" color="primary">
-       Hello World
-     </Button> */}
      
-      </div>
+           <WeekContainer className="align-self-center" >
+                      <DateContainer> <h3 className="card-title">{day}</h3></DateContainer>
+                      <IconContainer><img src={this.props.icon} alt="" /></IconContainer>
+                     <TempContainer> <h5 className="card-subtitle">{this.props.temp} °C </h5></TempContainer>
+                      <SumContainer>  <h6 className="card-subtitle">
+                       {weather}
+                      </h6>
+                      </SumContainer>
+          </WeekContainer>
     );
   }
 }
 
 export default WeatherWeek;
+
+const WeekContainer = styled.div`
+  
+    display:flex;
+    width:90%;
+    height:80%;
+    flex-direction:column;
+    justify-content:space-between;
+    align-items:flex-start;
+`;
+
+const DateContainer = styled.div`
+ flex:1;
+`;
+const IconContainer = styled.div`
+flex:2;
+`;
+
+const TempContainer = styled.div`
+flex:1;
+`;
+const SumContainer = styled.div`
+flex:1;
+`;
+
