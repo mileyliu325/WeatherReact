@@ -62,7 +62,7 @@ class Dashboard extends Component {
               </DetailContainer>
 
               <CityContainer>
-                <div className="form-group" >
+                <div className="form-group">
                   <h1> {this.state.city}</h1>
                   <select
                     className="form-control"
@@ -81,11 +81,10 @@ class Dashboard extends Component {
             </TopContainer>
 
             <BottomContainer>
-              <TweetContainer >
-                <WeatherTwitter city={this.state.city}>
-
-                </WeatherTwitter>
-                </TweetContainer>
+              <TweetContainer>
+                <WeatherTwitter city={this.state.city} />
+              </TweetContainer>
+              <Seperater></Seperater>
 
               <WeekContainer>
                 {data &&
@@ -149,17 +148,17 @@ const BottomContainer = styled.div`
 const DetailContainer = styled.div`
   display: flex;
   justify-content: center;
-  align-items:center;
-  flex:3;
+  align-items: center;
+  flex: 3;
 `;
 
 const CityContainer = styled.div`
   margin-top: 10%;
-  margin-right:10%;
-  flex:2;
+  margin-right: 10%;
+  flex: 2;
   display: flex;
   justify-content: center;
-  color:white;
+  color: white;
   text-decoration: underline;
 `;
 
@@ -173,4 +172,13 @@ const WeekContainer = styled.div`
   flex: 3;
   display: flex;
   flex-direction: row;
+  padding-left:2%;
+`;
+
+const Seperater = styled.div`
+  margin-top:5%;
+  height: 60%;
+  width:3px;
+  background-color:darkblue;
+ 
 `;
