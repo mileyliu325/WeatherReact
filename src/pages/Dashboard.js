@@ -5,6 +5,7 @@ import axios from "axios";
 
 import WeatherDetail from "../components/WeatherDetail";
 import WeatherWeek from "../components/WeatherWeek";
+import WeatherTwitter from "../components/WeatherTwitter";
 
 const HOST = "https://api.apixu.com/v1/forecast.json";
 const KEY = "f2dbda67de814bf8bf895350192301";
@@ -80,7 +81,11 @@ class Dashboard extends Component {
             </TopContainer>
 
             <BottomContainer>
-              <TweetContainer />
+              <TweetContainer >
+                <WeatherTwitter city={this.state.city}>
+
+                </WeatherTwitter>
+                </TweetContainer>
 
               <WeekContainer>
                 {data &&
@@ -143,19 +148,19 @@ const BottomContainer = styled.div`
 
 const DetailContainer = styled.div`
   display: flex;
+  justify-content: center;
+  align-items:center;
   flex:3;
 `;
+
 const CityContainer = styled.div`
   margin-top: 10%;
   margin-right:10%;
-  
-   flex:2;
+  flex:2;
   display: flex;
   justify-content: center;
   color:white;
   text-decoration: underline;
-  
-  
 `;
 
 const TweetContainer = styled.div`

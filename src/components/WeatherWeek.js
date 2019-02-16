@@ -50,5 +50,7 @@ flex:2;
 `;
 const SumContainer = styled.div`
 flex:2;
+padding-right:5px;
+
 `;
 
