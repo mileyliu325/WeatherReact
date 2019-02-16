@@ -12,12 +12,13 @@ const KEY = "f2dbda67de814bf8bf895350192301";
 class Dashboard extends Component {
   constructor() {
     super();
-    this.state = { data: null };
+    this.state = { data: null, city: "Sydney", isLoading: false };
   }
+
   fetchData = async () => {
-    var city = "Sydney";
+    console.log("fetchdata....");
     axios
-      .get(HOST + "?key=" + KEY + "&q=" + city + "&days=5")
+      .get(HOST + "?key=" + KEY + "&q=" + this.state.city + "&days=5")
       .then(res => {
         const data = res.data;
 
@@ -27,13 +28,22 @@ class Dashboard extends Component {
         console.warn(err);
       });
   };
+
+  getData = value => {};
   componentDidMount() {
     this.fetchData();
   }
 
+  handleChange = event => {
+    //important！setState is async,must use call back
+    this.setState({ city: event.target.value }, () => {
+      this.fetchData();
+    });
+  };
+
   render() {
     const data = this.state.data;
-    console.log(data);
+    console.log("rendering" + data);
     return (
       <div>
         <BackgroundContainer>
@@ -51,7 +61,21 @@ class Dashboard extends Component {
               </DetailContainer>
 
               <CityContainer>
-                <h1>Sydney</h1>
+                <div className="form-group" >
+                  <h1> {this.state.city}</h1>
+                  <select
+                    className="form-control"
+                    id="city"
+                    name="city"
+                    value={this.state.city}
+                    onChange={this.handleChange}
+                  >
+                    <option value="Sydney">Sydney</option>
+                    <option value="London">London</option>
+                    <option value="Tokyo">Tokyo</option>
+                    <option value="Pairs">Paris</option>
+                  </select>
+                </div>
               </CityContainer>
             </TopContainer>
 
@@ -119,14 +143,19 @@ const BottomContainer = styled.div`
 
 const DetailContainer = styled.div`
   display: flex;
+  flex:3;
 `;
 const CityContainer = styled.div`
-  margin-top:10%;
+  margin-top: 10%;
+  margin-right:10%;
+  
+   flex:2;
   display: flex;
-  /* align-items:flex-start; */
-  justify-content:center;
-  color: #fff;
-  text-decoration:underline;
+  justify-content: center;
+  color:white;
+  text-decoration: underline;
+  
+  
 `;
 
 const TweetContainer = styled.div`

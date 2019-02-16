@@ -18,7 +18,7 @@ class WeatherWeek extends Component {
                       <IconContainer><img src={this.props.icon} alt="" /></IconContainer>
                      <TempContainer> <h5 className="card-subtitle">{this.props.temp} °C </h5></TempContainer>
                       <SumContainer>  <h6 className="card-subtitle">
-                       {weather}
+                       {this.props.sum}
                       </h6>
                       </SumContainer>
           </WeekContainer>
@@ -32,23 +32,23 @@ const WeekContainer = styled.div`
   
     display:flex;
     width:90%;
-    height:80%;
+    height:60%;
     flex-direction:column;
     justify-content:space-between;
     align-items:flex-start;
 `;
 
 const DateContainer = styled.div`
- flex:1;
+ flex:2;
 `;
 const IconContainer = styled.div`
-flex:2;
+flex:3;
 `;
 
 const TempContainer = styled.div`
-flex:1;
+flex:2;
 `;
 const SumContainer = styled.div`
-flex:1;
+flex:2;
 `;
 
